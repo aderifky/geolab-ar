@@ -1,0 +1,67 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>GeoLab AR - Praktikum Tanah (3D Interaktif)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body>
+    <div id="ui">
+      <button class="btn" onclick="selectSoil('vulkanik')">Vulkanik</button>
+      <button class="btn" onclick="selectSoil('laterit')">Laterit</button>
+      <button class="btn" onclick="selectSoil('alluvial')">Alluvial</button>
+      <button class="btn" onclick="openLKS()">LKS</button>
+    </div>
+
+    <div id="infoBox" style="display:none;">
+      <button id="closeInfo" onclick="hideInfo()">✕</button>
+      <h3 id="infoTitle">Judul</h3>
+      <p id="infoText">Keterangan</p>
+    </div>
+
+    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+      <a-assets>
+        <!-- textures (optional) -->
+      </a-assets>
+
+      <a-marker preset="hiro" id="marker">
+        <a-entity id="modelRoot" position="0 0 0">
+          <!-- placeholder 3D models made of A-Frame primitives -->
+          <a-entity id="vulkanikModel" visible="false" position="0 0 0">
+            <!-- layered cylinders to mimic soil profile -->
+            <a-cylinder radius="0.12" height="0.02" position="0 0.01 0" color="#3b2f2f"></a-cylinder>
+            <a-cylinder radius="0.11" height="0.02" position="0 0.03 0" color="#6b4f2f"></a-cylinder>
+            <a-cylinder radius="0.10" height="0.02" position="0 0.05 0" color="#8b6b3b"></a-cylinder>
+            <a-box position="0 0.12 0" depth="0.12" height="0.06" width="0.12" color="#2e8b57"></a-box>
+          </a-entity>
+
+          <a-entity id="lateritModel" visible="false" position="0 0 0">
+            <a-cylinder radius="0.12" height="0.02" position="0 0.01 0" color="#6b1b00"></a-cylinder>
+            <a-cylinder radius="0.11" height="0.02" position="0 0.03 0" color="#a33b1b"></a-cylinder>
+            <a-cylinder radius="0.10" height="0.02" position="0 0.05 0" color="#c55b3b"></a-cylinder>
+            <a-box position="0 0.12 0" depth="0.12" height="0.06" width="0.12" color="#9b7a4c"></a-box>
+          </a-entity>
+
+          <a-entity id="alluvialModel" visible="false" position="0 0 0">
+            <a-cylinder radius="0.12" height="0.02" position="0 0.01 0" color="#d2c6b0"></a-cylinder>
+            <a-cylinder radius="0.11" height="0.02" position="0 0.03 0" color="#bfb399"></a-cylinder>
+            <a-cylinder radius="0.10" height="0.02" position="0 0.05 0" color="#a99b7f"></a-cylinder>
+            <a-box position="0 0.12 0" depth="0.12" height="0.06" width="0.12" color="#6b8e23"></a-box>
+          </a-entity>
+
+          <!-- hotspots (invisible colliders) -->
+          <a-sphere id="hot1" class="clickable" radius="0.03" position="0 0.02 0.09" material="opacity:0.01"></a-sphere>
+          <a-sphere id="hot2" class="clickable" radius="0.03" position="0 0.05 -0.06" material="opacity:0.01"></a-sphere>
+        </a-entity>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script src="script.js"></script>
+  </body>
+</html>
